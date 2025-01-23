@@ -11,20 +11,30 @@ public class Lucy {
         System.out.println(line);
 
         Scanner scanner =  new Scanner(System.in);
-        String input;
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
         while(true) {
-            input = scanner.nextLine();
+            String input = scanner.nextLine();
 
             if (input.equals("bye")) {
                 System.out.println(line);
                 System.out.println("Bye. Hope to see you soon!");
                 System.out.println(line);
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(line);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println(line);
+            } else {
+                tasks[taskCount] = input;
+                taskCount++;
+                System.out.println(line);
+                System.out.println("added: " + input);
+                System.out.println(line);
             }
-            System.out.println(line);
-            System.out.println(input);
-            System.out.println(line);
         }
         scanner.close();
     }
