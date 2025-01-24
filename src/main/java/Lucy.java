@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lucy {
@@ -11,8 +12,7 @@ public class Lucy {
         System.out.println(line);
 
         Scanner scanner =  new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while(true) {
             try {
@@ -25,18 +25,18 @@ public class Lucy {
                 } else if (input.equals("list")) {
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                     System.out.println(line);
                 } else if (input.startsWith("mark ")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        if (index >= 0 && index < taskCount) {
-                            tasks[index].markAsDone();
+                        if (index >= 0 && index < tasks.size()) {
+                            tasks.get(index).markAsDone();
                             System.out.println(line);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println(" " + tasks[index]);
+                            System.out.println(" " + tasks.get(index));
                             System.out.println(line);
                         } else {
                             throw new LucyException("Task index out of range. Please provide a valid task number.");
@@ -47,11 +47,11 @@ public class Lucy {
                 } else if (input.startsWith("unmark ")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        if (index >= 0 && index < taskCount) {
-                            tasks[index].markAsNotDone();
+                        if (index >= 0 && index < tasks.size()) {
+                            tasks.get(index).markAsNotDone();
                             System.out.println(line);
                             System.out.println("I've marked this task as undone:");
-                            System.out.println(" " + tasks[index]);
+                            System.out.println(" " + tasks.get(index));
                             System.out.println(line);
                         } else {
                             throw new LucyException("Task index out of range. Please provide a valid task number.");
@@ -64,12 +64,11 @@ public class Lucy {
                         throw new LucyException("The description of a todo cannot be empty.");
                     }
                     String description = input.substring(5);
-                    tasks[taskCount] = new Todo(description);
-                    taskCount++;
+                    tasks.add(new Todo(description));
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("deadline ")) {
                     if (!input.contains(" /by ")) {
@@ -79,25 +78,39 @@ public class Lucy {
                     if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                         throw new LucyException("Invalid format for deadline. Ensure you specify a description and a deadline time.");
                     }
-                    tasks[taskCount] = new Deadline(parts[0], parts[1]);
-                    taskCount++;
+                    tasks.add(new Deadline(parts[0], parts[1]));
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("event ")) {
                     if (!input.contains(" /from ") || !input.contains(" /to ")) {
                         throw new LucyException("Invalid format for event. Ensure you specify a description, start time and end time.");
                     }
                     String[] parts = input.substring(6).split(" /from | /to ");
-                    tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
-                    taskCount++;
+                    tasks.add(new Event(parts[0], parts[1], parts[2]));
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
+                } else if (input.startsWith("delete ")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        if (index >= 0 && index < tasks.size()) {
+                            Task removedTask = tasks.remove(index);
+                            System.out.println(line);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(" " + removedTask);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list");
+                            System.out.println(line);
+                        } else {
+                            throw new LucyException("Task index out of range. Please provide a valid task number.");
+                        }
+                    } catch (NumberFormatException e) {
+                        throw new LucyException("Invalid format. Please provide task number to delete.");
+                    }
                 } else {
                     throw new LucyException("I'm sorry, but I don't know what that means.");
                 }
