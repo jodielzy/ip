@@ -19,6 +19,8 @@ abstract class Task {
         isDone = false;
     }
 
+    public abstract String toFileFormat();
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
