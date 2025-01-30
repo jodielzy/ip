@@ -2,7 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lucy {
+    private static final String FILE_PATH = "data/lucy.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
+        TaskManager.loadTasks(tasks, FILE_PATH);
+        Scanner scanner = new Scanner(System.in);
         String line = "_________________________________";
 
         //greet user
@@ -10,9 +15,6 @@ public class Lucy {
         System.out.println("Hello! I'm Lucy");
         System.out.println("What can I do for you?");
         System.out.println(line);
-
-        Scanner scanner =  new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         while(true) {
             try {
@@ -34,6 +36,7 @@ public class Lucy {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             tasks.get(index).markAsDone();
+                            TaskManager.saveTasks(tasks, FILE_PATH);
                             System.out.println(line);
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(" " + tasks.get(index));
@@ -49,6 +52,7 @@ public class Lucy {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             tasks.get(index).markAsNotDone();
+                            TaskManager.saveTasks(tasks, FILE_PATH);
                             System.out.println(line);
                             System.out.println("I've marked this task as undone:");
                             System.out.println(" " + tasks.get(index));
@@ -65,6 +69,7 @@ public class Lucy {
                     }
                     String description = input.substring(5);
                     tasks.add(new Todo(description));
+                    TaskManager.saveTasks(tasks, FILE_PATH);
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -79,6 +84,7 @@ public class Lucy {
                         throw new LucyException("Invalid format for deadline. Ensure you specify a description and a deadline time.");
                     }
                     tasks.add(new Deadline(parts[0], parts[1]));
+                    TaskManager.saveTasks(tasks, FILE_PATH);
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -90,6 +96,7 @@ public class Lucy {
                     }
                     String[] parts = input.substring(6).split(" /from | /to ");
                     tasks.add(new Event(parts[0], parts[1], parts[2]));
+                    TaskManager.saveTasks(tasks, FILE_PATH);
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -100,6 +107,7 @@ public class Lucy {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             Task removedTask = tasks.remove(index);
+                            TaskManager.saveTasks(tasks, FILE_PATH);
                             System.out.println(line);
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(" " + removedTask);
