@@ -1,8 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalDate;
 
 public class TaskManager {
     public static void saveTasks(ArrayList<Task> tasks, String filePath) {
@@ -40,7 +43,7 @@ public class TaskManager {
                         if (parts.length < 4) {
                             continue;
                         }
-                        task = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
                         break;
                     case "E":
                         if (parts.length < 4) {

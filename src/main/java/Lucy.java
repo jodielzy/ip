@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDate;
+
 public class Lucy {
     private static final String FILE_PATH = "data/lucy.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -83,7 +85,8 @@ public class Lucy {
                     if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                         throw new LucyException("Invalid format for deadline. Ensure you specify a description and a deadline time.");
                     }
-                    tasks.add(new Deadline(parts[0], parts[1]));
+                    LocalDate date = LocalDate.parse(parts[1]);
+                    tasks.add(new Deadline(parts[0], date));
                     TaskManager.saveTasks(tasks, FILE_PATH);
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
