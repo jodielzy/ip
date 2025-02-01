@@ -1,14 +1,20 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.time.LocalDate;
 
-public class TaskManager {
-    public static void saveTasks(ArrayList<Task> tasks, String filePath) {
+public class Storage {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath, false);
             for (Task task : tasks) {
@@ -20,13 +26,14 @@ public class TaskManager {
         }
     }
 
-    public static void loadTasks(ArrayList<Task> tasks, String filePath) {
+    public ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                return;
+                return tasks;
             }
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
@@ -67,5 +74,6 @@ public class TaskManager {
         } catch(IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
+        return tasks;
     }
 }
