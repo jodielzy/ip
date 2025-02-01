@@ -1,3 +1,5 @@
+package lucy;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -14,7 +16,7 @@ public class TaskList {
 
     public void deleteTask(int index, Storage storage) throws LucyException {
         if (index < 0 || index >= tasks.size()) {
-            throw new LucyException("Task index out of range.");
+            throw new LucyException("lucy.Task index out of range.");
         }
         tasks.remove(index);
         storage.saveTasks(tasks);
@@ -22,7 +24,7 @@ public class TaskList {
 
     public void markTask(int index, boolean done, Storage storage) throws LucyException {
         if (index < 0 || index >= tasks.size()) {
-            throw new LucyException("Task index out of range.");
+            throw new LucyException("lucy.Task index out of range.");
         }
         if (done) {
             tasks.get(index).markAsDone();

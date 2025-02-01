@@ -1,3 +1,5 @@
+package lucy;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -13,7 +15,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("_________________________________");
-        System.out.println("Hello! I'm Lucy");
+        System.out.println("Hello! I'm lucy.Lucy");
         System.out.println("What can I do for you?");
         System.out.println("_________________________________");
     }

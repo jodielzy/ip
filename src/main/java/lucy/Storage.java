@@ -1,3 +1,5 @@
+package lucy;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
