@@ -9,13 +9,24 @@ import java.util.Scanner;
 
 import java.time.LocalDate;
 
+/**
+ * Handles storage of tasks into a file and loading them.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with a file path.
+     * @param filePath The path of the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves tasks to the file.
+     * @param tasks The list of tasks to save.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath, false);
@@ -28,6 +39,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     * @return The list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
