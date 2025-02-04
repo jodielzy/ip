@@ -83,6 +83,13 @@ public class Lucy {
                         tasks.deleteTask(deleteIndex, storage);
                         ui.showMessage("Noted. I've removed this task.");
                         break;
+                    case "find":
+                        if (parsedCommand.length < 2 || parsedCommand[1].trim().isEmpty()) {
+                            ui.showError("Please provide a keyword to search for.");
+                        } else {
+                            tasks.findTasks(parsedCommand[1].trim());
+                        }
+                        break;
                     default:
                         ui.showError("I'm sorry, but I don't know what that means.");
                         break;
