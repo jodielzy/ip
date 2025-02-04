@@ -43,4 +43,11 @@ public class TaskList {
             }
         }
     }
+
+    public Task getTask(int index) throws LucyException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new LucyException("Task index out of range.");
+        }
+        return tasks.get(index);
+    }
 }
