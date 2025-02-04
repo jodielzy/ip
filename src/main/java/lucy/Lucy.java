@@ -4,18 +4,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Represents the main application logic for Lucy.
+ */
 public class Lucy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Lucy instance with a file path for task storage.
+     * @param filePath The path to the storage file.
+     */
     public Lucy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * Runs the main loop of the application, handling user commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -85,6 +94,11 @@ public class Lucy {
             }
         }
     }
+
+    /**
+     * The main entry point of the application.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Lucy("data/lucy.txt").run();
     }
