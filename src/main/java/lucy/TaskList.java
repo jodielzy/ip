@@ -101,4 +101,32 @@ public class TaskList {
             }
         }
     }
+
+    public String listTasksString() {
+        if (tasks.isEmpty()) {
+            return "No tasks found.";
+        }
+        StringBuilder sb = new StringBuilder("Here are your tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String findTasksString(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the matching tasks:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
 }
