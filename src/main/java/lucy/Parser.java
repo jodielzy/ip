@@ -10,6 +10,7 @@ public class Parser {
      * @return The parsed command as an array.
      */
     public static String[] parseCommand(String input) {
+        assert input != null : "Command input should not be null";
         return input.split(" ", 2);
     }
 }
