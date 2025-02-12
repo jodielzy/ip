@@ -13,6 +13,7 @@ public class TaskList {
      * @param tasks the list of tasks to initialize with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list should not be null";
         this.tasks = tasks;
     }
 
@@ -33,6 +34,9 @@ public class TaskList {
      * @throws LucyException If the index is out of range.
      */
     public void deleteTask(int index, Storage storage) throws LucyException {
+        assert storage != null : "Storage instance should not be null";
+        assert index >= 0 && index < tasks.size() : "Task index out of range";
+
         if (index < 0 || index >= tasks.size()) {
             throw new LucyException("lucy.Task index out of range.");
         }
@@ -129,4 +133,9 @@ public class TaskList {
         }
         return sb.toString();
     }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
 }
