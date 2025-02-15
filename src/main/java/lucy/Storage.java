@@ -28,9 +28,12 @@ public class Storage {
      * @param tasks The list of tasks to save.
      */
     public void saveTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
+
         try {
             FileWriter writer = new FileWriter(filePath, false);
             for (Task task : tasks) {
+                assert task != null : "Task should not be null";
                 writer.write(task.toFileFormat() + "\n");
             }
             writer.close();

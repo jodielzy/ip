@@ -28,7 +28,10 @@ public class Lucy {
      * @return Lucy's response.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should never be null";
+
         String[] parsedCommand = Parser.parseCommand(input);
+        assert parsedCommand.length > 0 : "Parsed command should not be empty";
 
         try {
             switch (parsedCommand[0]) {
@@ -39,11 +42,13 @@ public class Lucy {
 
             case "mark":
                 int markIndex = Integer.parseInt(parsedCommand[1]) - 1;
+                assert markIndex > 0 && markIndex < tasks.getSize(): "Invalid mark index";
                 tasks.markTask(markIndex, true, storage);
                 return "Nice! I've marked this task as done.";
 
             case "unmark":
                 int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
+                assert unmarkIndex > 0 && unmarkIndex < tasks.getSize(): "Invalid unmark index";
                 tasks.markTask(unmarkIndex, false, storage);
                 return "I've marked this task as not done.";
 
