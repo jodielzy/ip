@@ -53,6 +53,8 @@ public class Lucy {
                 return handleDelete(parsedCommand);
             case "find":
                 return handleFind(parsedCommand);
+            case "undo":
+                return handleUndo();
             default:
                 return "I'm sorry, but I don't know what that means.";
             }
@@ -131,6 +133,10 @@ public class Lucy {
             return "Please provide a keyword to search for.";
         }
         return tasks.findTasksString(parsedCommand[1].trim());
+    }
+
+    private String handleUndo() {
+        return tasks.undo(storage);
     }
 
     /**
