@@ -17,6 +17,14 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public Todo clone() {
+        Todo clonedTodo = new Todo(this.description);
+        clonedTodo.isDone = this.isDone;
+        return clonedTodo;
+    }
+
+
     /**
      * Returns the task in file format.
      * @return The formatted string to be saved in a file.
