@@ -19,6 +19,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
+    public Event clone() {
+        Event clonedEvent = new Event(this.description, this.from, this.to);
+        clonedEvent.isDone = this.isDone; 
+        return clonedEvent;
+    }
+
+
     /**
      * Returns the string representation of the event task.
      * @return The formatted task string.

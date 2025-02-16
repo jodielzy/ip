@@ -44,6 +44,18 @@ abstract class Task {
      */
     public abstract String toFileFormat();
 
+    @Override
+    public Task clone() {
+        try {
+            Task clonedTask = (Task) super.clone();
+            clonedTask.isDone = this.isDone;
+            return clonedTask;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Cloning not supported for Task");
+        }
+    }
+
+
     /**
      * Returns the string representation of the task.
      * @return The formatted task string.

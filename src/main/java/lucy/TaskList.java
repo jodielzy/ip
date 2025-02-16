@@ -1,12 +1,14 @@
 package lucy;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * List of tasks managed by the user.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
+    private Stack<ArrayList<Task>> history;
 
     /**
      * Constructs a TaskList with an existing list of tasks.
@@ -15,6 +17,18 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         assert tasks != null : "Task list should not be null";
         this.tasks = tasks;
+        this.history = new Stack<>();
+    }
+
+    /**
+     * Saves the current state of tasks before modification.
+     */
+    private void saveState() {
+        ArrayList<Task> taskCopy = new ArrayList<>();
+        for (Task task : tasks) {
+            taskCopy.add(task.clone());
+        }
+        history.push(taskCopy);
     }
 
     /**
@@ -23,6 +37,7 @@ public class TaskList {
      * @param storage The storage instance to save tasks.
      */
     public void addTask(Task task, Storage storage) {
+        saveState();
         tasks.add(task);
         storage.saveTasks(tasks);
     }
@@ -40,6 +55,8 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new LucyException("lucy.Task index out of range.");
         }
+
+        saveState();
         tasks.remove(index);
         storage.saveTasks(tasks);
     }
@@ -55,12 +72,27 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new LucyException("lucy.Task index out of range.");
         }
+
+        saveState();
         if (done) {
             tasks.get(index).markAsDone();
         } else {
             tasks.get(index).markAsNotDone();
         }
         storage.saveTasks(tasks);
+    }
+
+    public String undo(Storage storage) {
+        if (history.isEmpty()) {
+            return "No actions to undo.";
+        }
+
+        ArrayList<Task> previousState = history.pop();
+        tasks.clear();
+        tasks.addAll(previousState);
+
+        storage.saveTasks(tasks);
+        return "Undo successful.";
     }
 
     /**

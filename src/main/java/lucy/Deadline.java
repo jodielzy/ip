@@ -19,6 +19,14 @@ public class Deadline extends Task {
         this.dueDate = by;
     }
 
+    @Override
+    public Deadline clone() {
+        Deadline clonedDeadline = new Deadline(this.description, this.dueDate);
+        clonedDeadline.isDone = this.isDone;
+        return clonedDeadline;
+    }
+
+
     /**
      * Returns the string representation of the deadline task.
      * @return The formatted task string.
