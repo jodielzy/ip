@@ -48,52 +48,73 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-                return tasks;
-            }
-            Scanner fileScanner = new Scanner(file);
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            createNewFile(file);
+            return tasks;
+        }
+
+        try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {
-                String[] parts = fileScanner.nextLine().split("\\s*\\|\\s*");
-                Task task;
-                switch (parts[0]) {
-                    case "T":
-                        if (parts.length < 3) {
-                            continue;
-                        }
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        if (parts.length < 4) {
-                            continue;
-                        }
-                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-                        break;
-                    case "E":
-                        if (parts.length < 4) {
-                            continue;
-                        }
-                        String[] eventTimes = parts[3].split("-");
-                        if (eventTimes.length < 2) {
-                            continue;
-                        }
-                        task = new Event(parts[2], eventTimes[0].trim(), eventTimes[1].trim());
-                        break;
-                    default:
-                        continue;
+                Task task = parseTask(fileScanner.nextLine());
+                if (task != null) {
+                    tasks.add(task);
                 }
-                if (parts[1].equals("1")) {
-                    task.markAsDone();
-                }
-                tasks.add(task);
             }
-            fileScanner.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Parses a task from a given line.
+     * @param line The line to parse.
+     * @return The parsed Task object, or null if the line is invalid.
+     */
+    private Task parseTask(String line) {
+        String[] parts = line.split("\\s*\\|\\s*");
+        if (parts.length < 3) {
+            return null;
+        }
+
+        Task task;
+        switch (parts[0]) {
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            if (parts.length < 4) return null;
+            task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+            break;
+        case "E":
+            if (parts.length < 4) return null;
+            String[] eventTimes = parts[3].split("-");
+            if (eventTimes.length < 2) return null;
+            task = new Event(parts[2], eventTimes[0].trim(), eventTimes[1].trim());
+            break;
+        default:
+            return null;
+        }
+
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Creates a new file if it does not exist.
+     * @param file The file to create.
+     */
+    private void createNewFile(File file) {
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating new file: " + e.getMessage());
+        }
     }
 }
