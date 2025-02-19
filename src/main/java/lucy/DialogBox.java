@@ -32,6 +32,9 @@ public class DialogBox extends HBox{
         }
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        this.getStylesheets().add(getClass().getResource("/css/dialog-box.css").toExternalForm());
+
     }
 
     private void flip() {
