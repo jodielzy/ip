@@ -63,14 +63,31 @@ public class Lucy {
         }
     }
 
+    /**
+     * Handles the "bye" command, returning a farewell message.
+     *
+     * @return A goodbye message from Lucy.
+     */
     private String handleBye() {
         return "Bye. Hope to see you soon!";
     }
 
+    /**
+     * Handles the "list" command, returning a list of all tasks.
+     *
+     * @return A formatted list of all tasks.
+     */
     private String handleList() {
         return tasks.listTasksString();
     }
 
+    /**
+     * Handles the "mark" command, marking a specified task as done.
+     *
+     * @param parsedCommand The parsed command containing the task index.
+     * @return A confirmation message indicating the task has been marked as done.
+     * @throws LucyException If the index is invalid.
+     */
     private String handleMark(String[] parsedCommand) throws LucyException {
         int markIndex = Integer.parseInt(parsedCommand[1]) - 1;
         assert markIndex >= 0 && markIndex < tasks.getSize() : "Invalid mark index";
@@ -78,6 +95,13 @@ public class Lucy {
         return "Nice! I've marked this task as done.";
     }
 
+    /**
+     * Handles the "unmark" command, marking a specified task as not done.
+     *
+     * @param parsedCommand The parsed command containing the task index.
+     * @return A confirmation message indicating the task has been marked as not done.
+     * @throws LucyException If the index is invalid.
+     */
     private String handleUnmark(String[] parsedCommand) throws LucyException {
         int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
         assert unmarkIndex >= 0 && unmarkIndex < tasks.getSize() : "Invalid unmark index";
@@ -85,6 +109,12 @@ public class Lucy {
         return "I've marked this task as not done.";
     }
 
+    /**
+     * Handles the "todo" command, adding a new todo task.
+     *
+     * @param parsedCommand The parsed command containing the task description.
+     * @return A confirmation message indicating the task has been added.
+     */
     private String handleTodo(String[] parsedCommand) {
         if (parsedCommand.length < 2 || parsedCommand[1].trim().isEmpty()) {
             return "Error: The description of a todo cannot be empty";
@@ -93,6 +123,12 @@ public class Lucy {
         return "Got it. I've added this task.";
     }
 
+    /**
+     * Handles the "deadline" command, adding a new deadline task.
+     *
+     * @param parsedCommand The parsed command containing the task description and due date.
+     * @return A confirmation message indicating the task has been added.
+     */
     private String handleDeadline(String[] parsedCommand) {
         if (parsedCommand.length < 2 || !parsedCommand[1].contains(" /by ")) {
             return "Error: The description of a deadline cannot be empty. Use: deadline <task> /by yyyy-MM-dd";
@@ -110,6 +146,12 @@ public class Lucy {
         }
     }
 
+    /**
+     * Handles the "event" command, adding a new event task.
+     *
+     * @param parsedCommand The parsed command containing the event details.
+     * @return A confirmation message indicating the task has been added.
+     */
     private String handleEvent(String[] parsedCommand) {
         if (parsedCommand.length < 2 || !parsedCommand[1].contains(" /from ") || !parsedCommand[1].contains(" /to ")) {
             return "Error: The description of an event cannot be empty. Use: event <task> /from <start> /to <end>";
@@ -122,12 +164,25 @@ public class Lucy {
         return "Got it. I've added this task.";
     }
 
+    /**
+     * Handles the "delete" command, removing a task.
+     *
+     * @param parsedCommand The parsed command containing the task index.
+     * @return A confirmation message indicating the task has been removed.
+     * @throws LucyException If the index is invalid.
+     */
     private String handleDelete(String[] parsedCommand) throws LucyException {
         int deleteIndex = Integer.parseInt(parsedCommand[1]) - 1;
         tasks.deleteTask(deleteIndex, storage);
         return "Noted. I've removed this task.";
     }
 
+    /**
+     * Handles the "find" command, searching for tasks containing a keyword.
+     *
+     * @param parsedCommand The parsed command containing the search keyword.
+     * @return A list of matching tasks.
+     */
     private String handleFind(String[] parsedCommand) {
         if (parsedCommand.length < 2 || parsedCommand[1].trim().isEmpty()) {
             return "Please provide a keyword to search for.";
@@ -135,6 +190,11 @@ public class Lucy {
         return tasks.findTasksString(parsedCommand[1].trim());
     }
 
+    /**
+     * Handles the "undo" command, undoing the last action performed.
+     *
+     * @return A message indicating the result of the undo operation.
+     */
     private String handleUndo() {
         return tasks.undo(storage);
     }

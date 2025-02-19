@@ -19,6 +19,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Creates and returns a copy of this Event task.
+     * The cloned task retains the same description, due date, and completion status.
+     * @return A new Event object that is a copy of the current task.
+     */
     @Override
     public Event clone() {
         Event clonedEvent = new Event(this.description, this.from, this.to);

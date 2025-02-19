@@ -82,6 +82,13 @@ public class TaskList {
         storage.saveTasks(tasks);
     }
 
+    /**
+     * Undoes the last action performed on the task list.
+     * Restores the previous state from history and updates storage.
+     *
+     * @param storage The storage instance used to persist the undone state.
+     * @return A message indicating the result of the undo operation.
+     */
     public String undo(Storage storage) {
         if (history.isEmpty()) {
             return "No actions to undo.";
@@ -108,6 +115,11 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Returns a formatted string listing all tasks in the task list.
+     *
+     * @return A string representation of all tasks or a message if the list is empty.
+     */
     public String listTasksString() {
         if (tasks.isEmpty()) {
             return "No tasks found.";
@@ -119,6 +131,12 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Searches for tasks that contain a given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A formatted string listing the matching tasks or a message if no matches are found.
+     */
     public String findTasksString(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -136,6 +154,11 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Returns the number of tasks currently in the task list.
+     *
+     * @return The total number of tasks.
+     */
     public int getSize() {
         return tasks.size();
     }

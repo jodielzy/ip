@@ -19,6 +19,11 @@ public class Deadline extends Task {
         this.dueDate = by;
     }
 
+    /**
+     * Creates and returns a copy of this Deadline task.
+     * The cloned task retains the same description, due date, and completion status.
+     * @return A new Deadline object that is a copy of the current task.
+     */
     @Override
     public Deadline clone() {
         Deadline clonedDeadline = new Deadline(this.description, this.dueDate);

@@ -17,6 +17,11 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Creates and returns a copy of this Todo task.
+     * The cloned task retains the same description, due date, and completion status.
+     * @return A new Todo object that is a copy of the current task.
+     */
     @Override
     public Todo clone() {
         Todo clonedTodo = new Todo(this.description);
