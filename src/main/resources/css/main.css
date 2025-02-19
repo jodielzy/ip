@@ -1,0 +1,55 @@
+/* Overall background color */
+.root {
+    -fx-background-color: #f4f4f4;
+}
+
+/* Rounded text input field */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #5C9DFF;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+}
+
+/* Button Styling */
+.button {
+    -fx-background-color: #5C9DFF;
+    -fx-text-fill: white;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Hover effect */
+.button:hover {
+    -fx-background-color: #4682B4;
+}
+
+/* Pressed effect */
+.button:pressed {
+    -fx-background-color: #2B5C89;
+}
+
+/* ScrollPane Styling */
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Rounded ScrollBar */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #5C9DFF;
+    -fx-background-radius: 10px;
+}
+
+/* Chat Message Styling */
+.dialog-box-container {
+    -fx-padding: 10px;
+}
