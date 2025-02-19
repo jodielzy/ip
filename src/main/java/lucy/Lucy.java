@@ -117,7 +117,7 @@ public class Lucy {
      */
     private String handleTodo(String[] parsedCommand) {
         if (parsedCommand.length < 2 || parsedCommand[1].trim().isEmpty()) {
-            return "Error: The description of a todo cannot be empty";
+            return "Error: The description of a todo cannot be empty. Use: todo <task>";
         }
         tasks.addTask(new Todo(parsedCommand[1]), storage);
         return "Got it. I've added this task.";
