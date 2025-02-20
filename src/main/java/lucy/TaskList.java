@@ -91,7 +91,7 @@ public class TaskList {
      */
     public String undo(Storage storage) {
         if (history.isEmpty()) {
-            return "No actions to undo.";
+            return "Oops! No actions left to undo. Maybe we can just ketchup next time?";
         }
 
         ArrayList<Task> previousState = history.pop();
@@ -99,7 +99,7 @@ public class TaskList {
         tasks.addAll(previousState);
 
         storage.saveTasks(tasks);
-        return "Undo successful.";
+        return "Phew! I rolled things back like a good spud!";
     }
 
     /**
@@ -122,9 +122,10 @@ public class TaskList {
      */
     public String listTasksString() {
         if (tasks.isEmpty()) {
-            return "No tasks found.";
+            return "Oh no, Tomo! Your task list is emptier than a potato sack! Let's add something!";
         }
-        StringBuilder sb = new StringBuilder("Here are your tasks:\n");
+        StringBuilder sb = new StringBuilder("Here’s your task list, Tomo! " +
+                "Let’s get these tasks done before we sprout more problems! :\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
@@ -145,9 +146,9 @@ public class TaskList {
             }
         }
         if (matchingTasks.isEmpty()) {
-            return "No matching tasks found.";
+            return "Oopsie! No matching tasks found, Tomo. Maybe I need to put on my potato glasses?";
         }
-        StringBuilder sb = new StringBuilder("Here are the matching tasks:\n");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks, Tomo! :\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
