@@ -56,7 +56,7 @@ public class Lucy {
             case "undo":
                 return handleUndo();
             default:
-                return "Uhh… my little potato brain doesn’t understand this, Tomo!";
+                return "Uhh... my little potato brain doesn't understand this, Tomo!";
             }
         } catch (LucyException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return "Error: " + e.getMessage();
@@ -106,7 +106,7 @@ public class Lucy {
         int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
         assert unmarkIndex >= 0 && unmarkIndex < tasks.getSize() : "Invalid unmark index";
         tasks.markTask(unmarkIndex, false, storage);
-        return "Oopsie... We unmarked that. It’s okay! Potatoes sometimes forget things too!";
+        return "Oopsie... We unmarked that. It's okay! Potatoes sometimes forget things too!";
     }
 
     /**
@@ -182,7 +182,7 @@ public class Lucy {
     private String handleDelete(String[] parsedCommand) throws LucyException {
         int deleteIndex = Integer.parseInt(parsedCommand[1]) - 1;
         tasks.deleteTask(deleteIndex, storage);
-        return "Chopping this task away… Hope it wasn’t too rooted in your plans!";
+        return "Chopping this task away... Hope it wasn’t too rooted in your plans!";
     }
 
     /**

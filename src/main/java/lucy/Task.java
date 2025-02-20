@@ -55,7 +55,6 @@ abstract class Task {
         }
     }
 
-
     /**
      * Returns the string representation of the task.
      * @return The formatted task string.

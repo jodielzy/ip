@@ -124,8 +124,8 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return "Oh no, Tomo! Your task list is emptier than a potato sack! Let's add something!";
         }
-        StringBuilder sb = new StringBuilder("Here’s your task list, Tomo! " +
-                "Let’s get these tasks done before we sprout more problems! :\n");
+        StringBuilder sb = new StringBuilder("Here's your task list, Tomo! " +
+                "Let's get these tasks done before we sprout more problems! :\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }

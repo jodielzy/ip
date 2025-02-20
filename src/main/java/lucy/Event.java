@@ -31,7 +31,6 @@ public class Event extends Task {
         return clonedEvent;
     }
 
-
     /**
      * Returns the string representation of the event task.
      * @return The formatted task string.

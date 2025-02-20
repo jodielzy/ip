@@ -31,7 +31,6 @@ public class Deadline extends Task {
         return clonedDeadline;
     }
 
-
     /**
      * Returns the string representation of the deadline task.
      * @return The formatted task string.
