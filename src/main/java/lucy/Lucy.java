@@ -69,7 +69,7 @@ public class Lucy {
      * @return A goodbye message from Lucy.
      */
     private String handleBye() {
-        return "Bye. Hope to see you soon!";
+        return "Added to your list, Tomo! Just don’t let it grow roots!";
     }
 
     /**
