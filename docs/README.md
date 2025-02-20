@@ -18,7 +18,7 @@ Here’s your task list, Tomo! Let’s get these tasks done before we sprout mor
 2. [D][X] Submit assignment (by: Nov 20 2024)
 ```
 
-## Adding deadlines
+## Adding a Deadline task
 
 **Command:** `deadline TASK_DESCRIPTION /by YYYY-MM-DD`
 
