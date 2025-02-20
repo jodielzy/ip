@@ -56,7 +56,7 @@ public class Lucy {
             case "undo":
                 return handleUndo();
             default:
-                return "I'm sorry, but I don't know what that means.";
+                return "Uhh… my little potato brain doesn’t understand this, Tomo!";
             }
         } catch (LucyException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return "Error: " + e.getMessage();
@@ -92,7 +92,7 @@ public class Lucy {
         int markIndex = Integer.parseInt(parsedCommand[1]) - 1;
         assert markIndex >= 0 && markIndex < tasks.getSize() : "Invalid mark index";
         tasks.markTask(markIndex, true, storage);
-        return "Nice! I've marked this task as done.";
+        return "Ooo! You finished a task! That's *spud-tacular*!";
     }
 
     /**
@@ -106,7 +106,7 @@ public class Lucy {
         int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
         assert unmarkIndex >= 0 && unmarkIndex < tasks.getSize() : "Invalid unmark index";
         tasks.markTask(unmarkIndex, false, storage);
-        return "I've marked this task as not done.";
+        return "Oopsie... We unmarked that. It’s okay! Potatoes sometimes forget things too!";
     }
 
     /**
@@ -119,8 +119,11 @@ public class Lucy {
         if (parsedCommand.length < 2 || parsedCommand[1].trim().isEmpty()) {
             return "Error: The description of a todo cannot be empty. Use: todo <task>";
         }
-        tasks.addTask(new Todo(parsedCommand[1]), storage);
-        return "Got it. I've added this task.";
+
+        Todo newTask = new Todo(parsedCommand[1]);
+        tasks.addTask(newTask, storage);
+        return "Added to your list, Tomo! Just don’t let it grow roots!\n" + newTask.toString() + "\n"
+                + "You have " + tasks.getSize() + " tasks on your list!";
     }
 
     /**
@@ -139,8 +142,10 @@ public class Lucy {
         }
         try {
             LocalDate date = LocalDate.parse(deadlineParts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            tasks.addTask(new Deadline(deadlineParts[0].trim(), date), storage);
-            return "Got it. I've added this task.";
+            Deadline newTask = new Deadline(deadlineParts[0].trim(), date);
+            tasks.addTask(newTask, storage);
+            return "Added to your list, Tomo! Just don’t let it grow roots!\n" + newTask.toString() + "\n"
+                    + "You have " + tasks.getSize() + " tasks on your list!";
         } catch (DateTimeParseException e) {
             return "Error: Invalid date format! Please use yyyy-MM-dd.";
         }
@@ -157,11 +162,14 @@ public class Lucy {
             return "Error: The description of an event cannot be empty. Use: event <task> /from <start> /to <end>";
         }
         String[] eventParts = parsedCommand[1].split(" /from | /to ");
-        if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty() || eventParts[2].trim().isEmpty()) {
+        if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty() ||
+                eventParts[2].trim().isEmpty()) {
             return "Error: Invalid event format. Use: event <task> /from <start> /to <end>";
         }
-        tasks.addTask(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()), storage);
-        return "Got it. I've added this task.";
+        Event newTask = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+        tasks.addTask(newTask, storage);
+        return "Added to your list, Tomo! Just don’t let it grow roots!\n" + newTask.toString() + "\n"
+                + "You have " + tasks.getSize() + " tasks on your list!";
     }
 
     /**
@@ -174,7 +182,7 @@ public class Lucy {
     private String handleDelete(String[] parsedCommand) throws LucyException {
         int deleteIndex = Integer.parseInt(parsedCommand[1]) - 1;
         tasks.deleteTask(deleteIndex, storage);
-        return "Noted. I've removed this task.";
+        return "Chopping this task away… Hope it wasn’t too rooted in your plans!";
     }
 
     /**
